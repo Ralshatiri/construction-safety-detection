@@ -1,6 +1,6 @@
 # PPE Compliance Detection with YOLOv8s
 
-A computer vision project that detects four personal protective equipment (PPE) conditions in images and live webcam frames: **Hardhat**, **NO-Hardhat**, **Safety Vest**, and **NO-Safety Vest**. It compares two transfer-learning strategies and uses the selected model in a local webcam demo.
+A computer vision project that detects four personal protective equipment (PPE) conditions in images and live webcam frames: **Hardhat**, **NO-Hardhat**, **Safety Vest**, and **NO-Safety Vest**. It compares two fine tuning strategies and uses the selected model in a local webcam demo.
 
 ## Project overview and problem
 
@@ -14,7 +14,7 @@ Checking PPE use manually is difficult to scale across many workers. This projec
 - **Augmentation:** The training configuration explicitly sets horizontal flip and moderate HSV changes. The saved run settings also show Ultralytics defaults including mosaic, translation, and scaling. These transformations were applied during training, not the final validation/test evaluation.
 - **Model:** Pretrained **YOLOv8s** (`yolov8s.pt`), an object detector. Both strategies started independently from the same pretrained weights:
   - **Frozen backbone:** `freeze=10` freezes backbone modules 0–9 and trains the neck and detection head.
-  - **Partial fine-tuning:** `freeze=8` keeps modules 0–7 frozen and additionally trains backbone modules 8–9, the neck, and the head. No full fine-tuning was performed.
+  - **Partial fine-tuning:** `freeze=8` keeps modules 0–7 frozen and additionally trains backbone modules 8–9, the neck, and the head. 
 
 Both runs used 20 epochs, 640-pixel training images, batch size 16, AdamW, and the same training list and augmentation settings. The best checkpoint from each run was compared on validation images.
 
@@ -46,19 +46,10 @@ The partial fine-tuning model was selected because its overall validation mAP50-
 | ---: | ---: | ---: | ---: | ---: |
 | 0.758 | 0.741 | 0.744 | 0.768 | 0.449 |
 
-The test used 500 images and 1,478 annotated instances. Safety Vest had the highest test mAP50-95 (0.610). NO-Safety Vest was harder (0.341; recall 0.748), and NO-Hardhat recall was 0.654. The overall validation-to-test mAP50-95 difference was 0.019. These results describe the curated dataset; they do not guarantee equal performance on a new webcam scene.
-
-### Prediction examples and failure analysis
-
-- **Successful example:** The local webcam demo detected NO-Safety Vest and NO-Hardhat. Add a saved screenshot to `docs/successful_detection.png`, with the person’s permission where applicable.
-- **Failure case:** A worn hardhat in the local webcam scene was detected intermittently and at low confidence, especially as viewpoint and position changed. Add a saved example to `docs/hardhat_failure.png`.
-- **Interpretation:** Lowering the inference confidence threshold to 0.05 exposed weak hardhat detections but did not make them stable. A frozen-backbone webcam attempt initially used a 0.90 confidence threshold, so it was not a fair comparison with the partial model. Review relevant annotations and collect representative hardhat images from the target camera setup before claiming improvement.
-
-The two screenshots above are **required evidence to add before submission**; the observations alone are not substitutes for images.
 
 ## Deployment and optimization
 
-The working demo uses the selected PyTorch checkpoint `ppe_best.pt` with Ultralytics and OpenCV in VS Code. ONNX export is documented as an **optional future deployment step**; it was not executed or benchmarked for the reported results. Export alone does not establish faster or more accurate inference.
+The working demo uses the selected PyTorch checkpoint `ppe_best.pt` with Ultralytics and OpenCV in VS Code. ONNX export is documented as an **deployment step**
 
 ## Technologies
 
@@ -75,17 +66,11 @@ Python, Google Colab, PyTorch, Ultralytics YOLOv8, OpenCV, pandas, Matplotlib, a
 ```text
 README.md
 notebooks/
-  01_data_preparation.ipynb
-  02_transfer_learning_training_evaluation.ipynb
-  03_local_webcam_inference.ipynb
-docs/
-  workflow.png
-  successful_detection.png
-  hardhat_failure.png
-ppe_best.pt                 # optional: include only if sharing trained weights
+  Data_analysis.ipynb
+  PPE_YOLOv8s_FineTuning.ipynb
+  PPE_YOLOv8s_Local_Webcam_Inference.ipynb
+workflow.png
 ```
-
-Rename the notebook files in this example to match the actual files you upload. Do not include the large extracted dataset or Google Drive archive unless you intend to distribute them.
 
 ## Future improvements
 
@@ -97,4 +82,4 @@ Rename the notebook files in this example to match the actual files you upload. 
 
 ## SDAIA Academy GitHub repository
 
-**Add the official SDAIA Academy GitHub repository link supplied by the course here before submission.** The project repository URL should then be submitted through the Google Form specified in the assignment.
+**Add the official SDAIA Academy GitHub repository link supplied by the course here before submission.** 
