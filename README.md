@@ -57,9 +57,7 @@ Python, Google Colab, PyTorch, Ultralytics YOLOv8, OpenCV, pandas, Matplotlib, a
 
 ## How to run
 
-**Training and evaluation (Google Colab):** Open the data-preparation and training notebooks in order, select a GPU runtime, and provide the curated dataset ZIP in Google Drive at the location expected by the notebook (the example path is `/content/drive/MyDrive/ppe_4class_v3.zip`). The exact curated ZIP is not included in this repository. The training notebook installs Ultralytics, extracts the dataset, creates the oversampled training manifest, trains both strategies, compares validation metrics, and saves the selected `.pt` checkpoint. Re-running the training cells starts new training; the saved notebook outputs already show the reported experiment.
-
-**Webcam demo (local Windows / VS Code):** Install `ultralytics` and `opencv-python` in the selected Python environment. Download `ppe_best.pt` from the completed Colab run and put it in the VS Code working directory next to the webcam notebook. Run its cells using a **local** Python kernel. The notebook opens a desktop webcam window; press **q** in that window to stop. The demo does not need the training dataset. `conf=0.25` is the normal starting display threshold; `0.05` was used for diagnosing weak detections.
+**Webcam demo (VS Code):** Install `ultralytics` and `opencv-python` in the selected Python environment. Download `ppe_best.pt` from the completed Colab run and put it in the VS Code working directory next to the webcam notebook. Run its cells using a **local** Python kernel. The notebook opens a desktop webcam window; press **q** in that window to stop. The demo does not need the training dataset. `conf=0.25` is the normal starting display threshold; `0.05` was used for diagnosing weak detections.
 
 ## Suggested repository layout
 
