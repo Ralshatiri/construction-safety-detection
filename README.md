@@ -68,6 +68,7 @@ notebooks/
   PPE_YOLOv8s_FineTuning.ipynb
   PPE_YOLOv8s_Local_Webcam_Inference.ipynb
 workflow.png
+far.jpeg
 ```
 
 ## Future improvements
