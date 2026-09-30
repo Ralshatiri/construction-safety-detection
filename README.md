@@ -82,4 +82,5 @@ workflow.png
 
 ## SDAIA Academy GitHub repository
 
-**Add the official SDAIA Academy GitHub repository link supplied by the course here before submission.** 
+[**SDAIA Academy GitHub repository link.** 
+](https://github.com/SDAIAAcademy)
